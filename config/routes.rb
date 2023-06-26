@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
-  get 'hello/empty'
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  root 'hello#empty'
+
+  get '/hello' => 'hello#empty'
+
+  post 'auth/:provider/callback' => 'hello#create'
+  get 'auth/:provider/callback' => 'hello#create'
 end
