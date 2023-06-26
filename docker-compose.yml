@@ -1,0 +1,87 @@
+version: '3.5'
+
+services:
+  postgres:
+    image: ${JIGSAW_ECR}jigsaw/postgres:GIT-SHA-${CIRCLE_SHA1}
+    build:
+      context: infra/containers/postgres
+    ports:
+      - "5432:5432"
+
+  unit-test:
+    image: ${JIGSAW_ECR}jigsaw:GIT-SHA-${CIRCLE_SHA1}
+    environment:
+      JIG_AWS_ENABLED: 'true'
+      JRUBY_OPTS: '-J-Xms256m -J-Xmx2048m -J-XX:+CMSClassUnloadingEnabled -J-XX:+TieredCompilation -J-XX:ReservedCodeCacheSize=128m --debug'
+      RAILS_ENV: test
+      AWS_ACCESS_KEY_ID:
+      AWS_SECRET_ACCESS_KEY:
+      CI:
+    links:
+      - postgres:database
+    volumes:
+      - ./backend_coverage_report:/usr/src/app/coverage
+
+  web-ci:
+    image: ${JIGSAW_ECR}jigsaw:GIT-SHA-${CIRCLE_SHA1}
+    environment:
+      JIG_AWS_ENABLED: 'true'
+      JRUBY_OPTS: '-J-XX:ReservedCodeCacheSize=512m -J-XX:+UseCodeCacheFlushing -J-XX:+UseParallelGC -J-XX:+UseParallelOldGC -J-Xmn1g -J-Xms4g -J-Xmx4g -J-XX:MaxPermSize=1g -J-XX:NewRatio=3 -J-XX:CompileCommand=dontinline,org.jruby.runtime.invokedynamic.InvokeDynamicSupport::invocationFallback'
+      RAILS_ENV: automation
+      AWS_ACCESS_KEY_ID:
+      AWS_SECRET_ACCESS_KEY:
+      AWS_DEFAULT_REGION: 'us-east-1'
+      AWS_REGION: 'us-east-1'
+      ELASTICSEARCH_HOST: 'https://search-jigsaw-es-dev-pxvdfqlycu7bajz5xmqwmearv4.us-east-1.es.amazonaws.com'
+      OKTA_TOKEN_URL: 'http://mock-api:888/okta/token'
+      API_PLATFORM_BASE_URL: 'http://mock-api:888/api-platform/'
+      API_PLATFORM_ID: test1
+      API_PLATFORM_KEY: test1
+      THOUGHTDATA_API_KEY: test1
+    ports:
+      - 3000
+    links:
+      - postgres:database
+      - mountebank:test
+      - mock-api:mock-api
+
+  integration:
+    environment:
+      TESTURL:
+      NODE:
+      THOUGHTDATAAPIKEY:
+      ALLACCESSTOKEN:
+      NOACCESSTOKEN: xxxx
+    build:
+      context: staffing-acceptance
+      dockerfile: IntegrationDockerfile
+    links:
+      - web-ci:apphost
+      - web-ci:local.jigsaw.thoughtworks.net
+    volumes:
+      - ./integrationtestreport:/tests/integration/testreport
+
+  ui-playwright:
+    build:
+      context: staffing-acceptance/ui-playwright
+    links:
+      - web-ci:apphost
+      - web-ci:local.jigsaw.thoughtworks.net
+    volumes:
+      - ./playwright-report:/app/playwright-report
+      - ./test-results:/app/test-results
+
+  mountebank:
+    image: ${JIGSAW_ECR}jigsaw/mountebank:GIT-SHA-${CIRCLE_SHA1}
+    environment:
+      NODE:
+    build:
+      context: staffing-acceptance
+      dockerfile: MountbankDockerfile
+    ports:
+      - 1000
+
+  mock-api:
+    image: ${JIGSAW_ECR}jigsaw/mock-api:GIT-SHA-${CIRCLE_SHA1}
+    build:
+      context: mock_api
