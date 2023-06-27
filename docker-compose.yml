@@ -10,7 +10,7 @@ services:
       DB_USER: app-user
       DB_PASSWORD: p@ssword
     ports:
-      - "3001:3001"
+      - "80:3001"
     depends_on:
       - database
   database:
