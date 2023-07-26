@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:experimental
-FROM jruby:9.3-jre11
+FROM jruby:9.3-jdk11
 WORKDIR /usr/src/app
 ENV TZ=UTC
 ARG CIRCLE_SHA1
@@ -9,7 +9,7 @@ RUN apt-get update && apt autoremove && apt-get -y upgrade \
   && apt-get -y install --no-install-recommends curl file git make netbase shared-mime-info openssh-client \
   && rm -rf /var/lib/apt/lists/*
 
-RUN gem install bundler
+ RUN gem install bundler
 # 将应用程序的 Gemfile 和 Gemfile.lock 复制到容器中
 COPY Gemfile Gemfile.lock ./
 
@@ -27,4 +27,4 @@ ENV RAILS_ENV=production
 ENTRYPOINT ["/bin/bash", "-c"]
 # 运行应用程序
 #CMD ["bundle", "exec", "rails", "s", "-p", "3000", "-b", "0.0.0.0"]
-CMD ["bundle exec puma -e $RAILS_ENV -p 3001 -C config/puma.rb"]
+CMD ["bundle exec puma -e $RAILS_ENV -p 3000 -C config/puma.rb"]

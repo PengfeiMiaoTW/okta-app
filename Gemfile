@@ -6,6 +6,10 @@ gem 'puma', '~> 5.0'
 gem 'rest-client', '~> 2.1.0'
 # gem 'redis', '~> 4.0'
 # gem 'bcrypt', '~> 3.1.7'
+gem 'jwt'
+gem 'json'
+gem 'figaro'
+gem 'dotenv-rails', '~> 2.8'
 
 group :development do
   # gem 'web-console', '>= 4.1.0'
