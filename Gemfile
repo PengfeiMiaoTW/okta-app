@@ -10,6 +10,7 @@ gem 'jwt'
 gem 'json'
 gem 'figaro'
 gem 'dotenv-rails', '~> 2.8'
+gem 'rest-client', '~> 2.1.0'
 
 group :development do
   # gem 'web-console', '>= 4.1.0'

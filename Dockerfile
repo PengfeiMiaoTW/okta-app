@@ -9,7 +9,7 @@ RUN apt-get update && apt autoremove && apt-get -y upgrade \
   && apt-get -y install --no-install-recommends curl file git make netbase shared-mime-info openssh-client \
   && rm -rf /var/lib/apt/lists/*
 
- RUN gem install bundler
+RUN gem install bundler --pre
 # 将应用程序的 Gemfile 和 Gemfile.lock 复制到容器中
 COPY Gemfile Gemfile.lock ./
 

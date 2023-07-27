@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   get '/hello' => 'hello#empty'
 
-  post 'auth/:provider/callback' => 'hello#create'
-  get 'auth/:provider/callback' => 'hello#create'
+  post 'auth/:provider/callback' => 'auth#callback'
+  get 'auth/:provider/callback' => 'auth#callback'
+  get 'auth/:provider/authorize' => 'auth#authorize'
 end
