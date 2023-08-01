@@ -1,27 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Login Page</title>
+  <title>Login Page</title>
 </head>
 <body>
 <h1>Login Page</h1>
 <form>
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username"><br><br>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password"><br><br>
-    <input type="button" value="Login" onclick="login()">
+  <input type="button" value="Login" onclick="login()">
 </form>
 
 <script>
-  function login() {
-    var username = document.getElementById("username").value;
-    var password = document.getElementById("password").value;
-
-    if (username === "admin" && password === "password") {
-      alert("Login successful!");
-    } else {
-      alert("Invalid username or password.");
+  async function login() {
+    const csrf_resp = await fetch('http://localhost:3000/auth/csrf_token', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    if (csrf_resp.status === 200) {
+      let csrf_body = await csrf_resp.json();
+      console.log('/csrf_token', csrf_body);
+      const oidc_resp = await fetch('http://localhost:3000/auth/oidc', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': csrf_body['authenticity_token'],
+        },
+        body: JSON.stringify({}),
+      });
+      if (oidc_resp.status === 200) {
+        let oidc_body = await oidc_resp.json();
+        console.log('/oidc', oidc_body);
+      }
     }
   }
 </script>

@@ -10,7 +10,9 @@ gem 'jwt'
 gem 'json'
 gem 'figaro'
 gem 'dotenv-rails', '~> 2.8'
-gem 'rest-client', '~> 2.1.0'
+gem 'omniauth_openid_connect', '0.6.1'
+gem "omniauth-rails_csrf_protection", "~> 1.0"
+# gem 'json-jwt', ''
 
 group :development do
   # gem 'web-console', '>= 4.1.0'

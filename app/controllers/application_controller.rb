@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
     token.gsub!('Bearer ', '')
     begin
       # typically you would cache this instead of making a call
-      okta_keys_url = ENV["OKTA_URL"] + "/oauth2/default/v1/keys?client_id=" + ENV["CLIENT_ID"]
+      okta_keys_url = ENV["OKTA_ISSUER"] + "/v1/keys?client_id=" + ENV["CLIENT_ID"]
       jwks_raw = Net::HTTP.get URI(okta_keys_url)
       jwk_keys = Array(JSON.parse(jwks_raw, :symbolize_names => true)[:keys])
 
