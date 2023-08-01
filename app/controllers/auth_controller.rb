@@ -2,17 +2,18 @@ require 'rest-client'
 require 'json'
 require 'omniauth/strategies/openid_connect'
 
-class AuthController < ApplicationController
-  skip_before_action :require_jwt
-  skip_before_action :verify_authenticity_token, only: :create
-  protect_from_forgery except: :authorize
+class AuthController < ActionController::Base
+  skip_before_action :verify_authenticity_token
+  # protect_from_forgery except: [:authorize, :create]
+  # protect_from_forgery with: :null_session
 
   def authorize
   end
 
   def create
-    puts request.env.to_s
-    render json: { user_info: request.env['omniauth.auth'] }
+    render json: { auth: request.env['omniauth.auth'] }
+    # session
+    # cookies
     #
     # redirect_url = params['redirectUrl'] || params['RelayState'] || '/'
     # path_fragments = redirect_url.split('/')

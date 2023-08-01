@@ -10,8 +10,11 @@
 </form>
 
 <script>
+  const base_url = 'http://localhost:3000';
+  // const base_url = 'http://175.178.113.56:8080/api';
+
   async function login() {
-    const csrf_resp = await fetch('http://localhost:3000/auth/csrf_token', {
+    const csrf_resp = await fetch(`${base_url}/auth/csrf_token`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -20,7 +23,7 @@
     if (csrf_resp.status === 200) {
       let csrf_body = await csrf_resp.json();
       console.log('/csrf_token', csrf_body);
-      const oidc_resp = await fetch('http://localhost:3000/auth/oidc', {
+      const oidc_resp = await fetch(`${base_url}/auth/oidc`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

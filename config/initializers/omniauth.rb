@@ -7,14 +7,14 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     response_type: :code,
     uid_field: "email",
     discovery: true,
-    issuer: "https://dev-19111685.okta.com",
+    issuer: "https://#{ENV["OP_HOST"]}",
     client_options: {
       # port: 443,
       scheme: "https",
-      host: "dev-19111685.okta.com",
-      identifier: ENV["CLIENT_ID"],
-      secret: ENV["CLIENT_SECRET"],
-      redirect_uri: ENV["REDIRECT_URI"],
+      host: ENV["OP_HOST"],
+      identifier: ENV["OP_CLIENT_ID"],
+      secret: ENV["OP_CLIENT_SECRET"],
+      redirect_uri: ENV["OP_REDIRECT_URI"],
       jwks_uri: '/keys'
     },
   }
