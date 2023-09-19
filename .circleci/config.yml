@@ -41,18 +41,21 @@ commands:
 
 
 jobs:
-  jobs:
-    rotate-ssm-key:
-      working_directory: ~/repo
-      machine:
-        image: ubuntu-2004:202010-01
-      steps:
-        - rotate-secrets-command:
-            config_file_path: "./secret-rotator-configs/config.json"
-        - store_artifacts:
-            path: report.encrypted
+  rotate-ssm-key:
+    working_directory: ~/repo
+    machine:
+      image: ubuntu-2004:202010-01
+    steps:
+      - rotate-secrets-command:
+          config_file_path: "./secret-rotator-configs/config.json"
+      - store_artifacts:
+          path: report.encrypted
 
 workflows:
   rotate-workflow:
     jobs:
-      - rotate-ssm-key
+      - hold-secret-rotation:
+          type: approval
+      - rotate-ssm-key:
+          requires:
+            - hold-secret-rotation
