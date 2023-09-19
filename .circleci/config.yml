@@ -45,6 +45,11 @@ jobs:
     machine:
       image: ubuntu-2004:202010-01
     steps:
+      - aws-cli/setup
+      - run:
+          name: Get and Set AWS Session Token
+          command: |
+            export AWS_SESSION_TOKEN=$(aws sts get-session-token --duration-seconds <duration_seconds> --profile <profile_name> --output json | jq -r '.Credentials.SessionToken')
       - rotate-secrets-command:
           config_file_path: "../secrets-rotator-configs/config.json"
       - store_artifacts:
