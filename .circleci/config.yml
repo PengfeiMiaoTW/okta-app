@@ -11,6 +11,7 @@ commands:
         type: string
     description: "rotate secrets"
     steps:
+      - aws-cli/setup
       - checkout
       - attach_workspace:
           at: ~/repo
@@ -24,6 +25,7 @@ commands:
       - run:
           name: rotate secrets
           command: |
+            export AWS_SESSION_TOKEN=$(aws sts get-session-token --duration-seconds 3600 --output text --query 'Credentials.SessionToken')
             bash ./scripts/rotate-secrets.sh <<parameters.config_file_path>>
       - run:
           name: Chat Notification Fail
@@ -46,13 +48,13 @@ jobs:
     machine:
       image: ubuntu-2004:202010-01
     steps:
-      - aws-cli/setup
-      - run:
-          name: Get and Set AWS Session Token
-          command: |
-            export AWS_SESSION_TOKEN=$(aws sts get-session-token --duration-seconds 3600 --output text --query 'Credentials.SessionToken')
-            echo "AWS_SESSION_TOKEN=$AWS_SESSION_TOKEN" >> $BASH_ENV
-            source $BASH_ENV
+#      - aws-cli/setup
+#      - run:
+#          name: Get and Set AWS Session Token
+#          command: |
+#            export AWS_SESSION_TOKEN=$(aws sts get-session-token --duration-seconds 3600 --output text --query 'Credentials.SessionToken')
+#            echo "AWS_SESSION_TOKEN=$AWS_SESSION_TOKEN" >> $BASH_ENV
+#            source $BASH_ENV
       - rotate-secrets-command:
           config_file_path: "../secrets-rotator-configs/config.json"
       - store_artifacts:
