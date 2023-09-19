@@ -1,0 +1,57 @@
+{
+  "source": {
+    "name": "${SOURCE_NAME}",
+    "passwordConfig": {
+      "length": 24,
+      "numbers": true,
+      "symbols": false,
+      "lowercase": true,
+      "excludeSimilarCharacters": false,
+      "exclude": "",
+      "strict": false
+    },
+    "action": {
+      "type": "GCP_POSTGRES_DATABASE_SOURCE",
+      "projectId": "${GCP_PROJECT_ID}",
+      "userName": "${DB_USERNAME}",
+      "instanceName": "${DB_INSTANCE_NAME_FOR_SECRET_ROTATION}",
+      "authentication": {
+        "type": "GCP_SERVICE_ACCOUNT",
+        "scopes": [
+          "test-scope"
+        ],
+        "credentials": "${GCLOUD_KEY}"
+      }
+    }
+  },
+  "consumers": [
+    {
+      "name": "Test Secret Manager 1",
+      "action": {
+        "type": "GCP_SECRET_MANAGER_CONSUMER",
+        "secretName": "${GCP_SECRET_NAME}",
+        "keyFieldName": "deployment.dbPassword",
+        "projectId": "${GCP_PROJECT_ID}",
+        "authentication": {
+          "type": "GCP_SERVICE_ACCOUNT",
+          "scopes": [],
+          "credentials": "${GCLOUD_KEY}"
+        }
+      }
+    },
+    {
+      "name": "Test Secret Manager 2",
+      "action": {
+        "type": "GCP_SECRET_MANAGER_CONSUMER",
+        "secretName": "${GCP_SECRET_NAME}",
+        "keyFieldName": "runtime.dbPassword",
+        "projectId": "${GCP_PROJECT_ID}",
+        "authentication": {
+          "scopes": [],
+          "type": "GCP_SERVICE_ACCOUNT",
+          "credentials": "${GCLOUD_KEY}"
+        }
+      }
+    }
+  ]
+}

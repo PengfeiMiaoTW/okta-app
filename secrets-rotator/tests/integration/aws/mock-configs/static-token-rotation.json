@@ -1,0 +1,29 @@
+{
+  "source": {
+    "name": "${SOURCE_NAME}",
+    "passwordConfig": {
+      "length": 24,
+      "numbers": true,
+      "symbols": false,
+      "lowercase": true,
+      "excludeSimilarCharacters": false,
+      "exclude": "",
+      "strict": false
+    },
+    "action": {
+      "type": "AWS_SECRET_MANAGER_SOURCE",
+      "secretId": "${AWS_SECRET_NAME}",
+      "keyFieldName": "runtime.session.secret",
+      "region": "AWS_REGION",
+      "authentication": {
+        "type": "AWS_ACCOUNT",
+        "credentials": {
+          "accessKeyId": "access key Id",
+          "secretAccessKey": "aws secret access key",
+          "sessionToken": "aws session token"
+        }
+      }
+    }
+  },
+  "consumers": []
+}

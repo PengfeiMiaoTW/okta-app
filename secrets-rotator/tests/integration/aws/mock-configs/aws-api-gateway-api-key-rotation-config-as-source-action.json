@@ -1,0 +1,12 @@
+{
+  "source": {
+    "name": "API Gateway API key",
+    "action": {
+      "type": "AWS_GATEWAY_API_KEY_SOURCE",
+      "usagePlanId": "${USAGE_PLAN_ID}",
+      "region": "${REGION}"
+    }
+  },
+  "consumers": []
+}
+

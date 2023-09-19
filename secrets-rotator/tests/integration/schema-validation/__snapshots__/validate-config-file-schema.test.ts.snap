@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`configuration files schema validation schema validation failure scenarios should throw error for invalid aws config files 1`] = `"[\\"must have required property 'secretId' in /consumers/0/action \\",\\"must have required property 'region' in /consumers/0/action \\",\\"must have required property 'secretAccessKey' in /consumers/0/action/authentication/credentials \\"]"`;
+
+exports[`configuration files schema validation schema validation failure scenarios should throw error for invalid aws config files 2`] = `"[\\"must have required property 'secretAccessKey' in /consumers/0/action/authentication/credentials \\"]"`;
+
+exports[`configuration files schema validation schema validation failure scenarios should throw error for invalid gcp config file 1`] = `"[\\"must have required property 'name' in /source \\"]"`;

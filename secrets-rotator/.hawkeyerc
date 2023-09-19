@@ -1,0 +1,3 @@
+{
+    "modules": ["files-ccnumber", "files-contents", "files-entropy", "files-secrets"]
+}

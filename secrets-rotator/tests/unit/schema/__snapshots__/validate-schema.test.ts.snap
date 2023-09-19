@@ -1,0 +1,1371 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`configuration file schema should match schema snapshot 1`] = `
+Object {
+  "$id": "http://example.com/example.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": Object {
+    "apiClientSecretAction": Object {
+      "properties": Object {
+        "apiPlatformUrl": Object {
+          "type": "string",
+        },
+        "authentication": Object {
+          "$ref": "#/definitions/oauth2Authentication",
+        },
+        "type": Object {
+          "const": "API_PLATFORM_CLIENT_SECRET",
+        },
+      },
+      "required": Array [
+        "type",
+        "apiPlatformUrl",
+        "authentication",
+      ],
+      "type": "object",
+    },
+    "apiConsumerAction": Object {
+      "properties": Object {
+        "authentication": Object {
+          "allOf": Array [
+            Object {
+              "if": Object {
+                "properties": Object {
+                  "type": Object {
+                    "oneOf": Array [
+                      Object {
+                        "type": "number",
+                      },
+                      Object {
+                        "type": "string",
+                      },
+                      Object {
+                        "type": "boolean",
+                      },
+                      Object {
+                        "type": "object",
+                      },
+                      Object {
+                        "type": "array",
+                      },
+                      Object {
+                        "type": "null",
+                      },
+                    ],
+                  },
+                },
+                "required": Array [
+                  "type",
+                ],
+              },
+              "then": Object {
+                "properties": Object {
+                  "type": Object {
+                    "enum": Array [
+                      "BASIC",
+                      "OAUTH_2",
+                      "BEARER",
+                    ],
+                  },
+                },
+                "required": Array [
+                  "type",
+                ],
+              },
+            },
+            Object {
+              "if": Object {
+                "properties": Object {
+                  "type": Object {
+                    "const": "BASIC",
+                  },
+                },
+                "required": Array [
+                  "type",
+                ],
+              },
+              "then": Object {
+                "$ref": "#/definitions/basicAuthentication",
+              },
+            },
+            Object {
+              "if": Object {
+                "properties": Object {
+                  "type": Object {
+                    "const": "OAUTH_2",
+                  },
+                },
+                "required": Array [
+                  "type",
+                ],
+              },
+              "then": Object {
+                "$ref": "#/definitions/oauth2Authentication",
+              },
+            },
+            Object {
+              "if": Object {
+                "properties": Object {
+                  "type": Object {
+                    "const": "BEARER",
+                  },
+                },
+                "required": Array [
+                  "type",
+                ],
+              },
+              "then": Object {
+                "$ref": "#/definitions/bearerAuthentication",
+              },
+            },
+          ],
+          "required": Array [
+            "type",
+          ],
+          "type": "object",
+        },
+        "body": Object {
+          "anyOf": Array [
+            Object {
+              "type": "number",
+            },
+            Object {
+              "type": "string",
+            },
+            Object {
+              "type": "boolean",
+            },
+            Object {
+              "type": "object",
+            },
+            Object {
+              "type": "array",
+            },
+            Object {
+              "type": "null",
+            },
+          ],
+        },
+        "method": Object {
+          "enum": Array [
+            "get",
+            "GET",
+            "delete",
+            "DELETE",
+            "head",
+            "HEAD",
+            "options",
+            "OPTIONS",
+            "post",
+            "POST",
+            "put",
+            "PUT",
+            "patch",
+            "PATCH",
+            "purge",
+            "PURGE",
+            "link",
+            "LINK",
+            "unlink",
+            "UNLINK",
+          ],
+        },
+        "params": Object {
+          "anyOf": Array [
+            Object {
+              "type": "number",
+            },
+            Object {
+              "type": "string",
+            },
+            Object {
+              "type": "boolean",
+            },
+            Object {
+              "type": "object",
+            },
+            Object {
+              "type": "array",
+            },
+            Object {
+              "type": "null",
+            },
+          ],
+        },
+        "responseKeyField": Object {
+          "type": "string",
+        },
+        "type": Object {
+          "const": "API_CONSUMER",
+        },
+        "url": Object {
+          "type": "string",
+        },
+      },
+      "required": Array [
+        "type",
+        "url",
+        "method",
+        "authentication",
+      ],
+      "type": "object",
+    },
+    "apiPlatformApiServiceTokenConsumerAction": Object {
+      "properties": Object {
+        "apiKeyHeaderName": Object {
+          "type": "string",
+        },
+        "apiName": Object {
+          "type": "string",
+        },
+        "apiPlatformUrl": Object {
+          "type": "string",
+        },
+        "authentication": Object {
+          "$ref": "#/definitions/oauth2Authentication",
+        },
+        "type": Object {
+          "const": "API_PLATFORM_API_SERVICE_TOKEN_CONSUMER",
+        },
+      },
+      "required": Array [
+        "type",
+        "apiName",
+        "apiKeyHeaderName",
+        "apiPlatformUrl",
+        "authentication",
+      ],
+      "type": "object",
+    },
+    "apiPlatformApiServiceTokenSourceAction": Object {
+      "properties": Object {
+        "apiKeyHeaderName": Object {
+          "type": "string",
+        },
+        "apiName": Object {
+          "type": "string",
+        },
+        "apiPlatformUrl": Object {
+          "type": "string",
+        },
+        "authentication": Object {
+          "$ref": "#/definitions/oauth2Authentication",
+        },
+        "type": Object {
+          "const": "API_PLATFORM_API_SERVICE_TOKEN_SOURCE",
+        },
+      },
+      "required": Array [
+        "type",
+        "apiName",
+        "apiKeyHeaderName",
+        "apiPlatformUrl",
+        "authentication",
+      ],
+      "type": "object",
+    },
+    "apiSourceAction": Object {
+      "properties": Object {
+        "authentication": Object {
+          "allOf": Array [
+            Object {
+              "if": Object {
+                "properties": Object {
+                  "type": Object {
+                    "oneOf": Array [
+                      Object {
+                        "type": "number",
+                      },
+                      Object {
+                        "type": "string",
+                      },
+                      Object {
+                        "type": "boolean",
+                      },
+                      Object {
+                        "type": "object",
+                      },
+                      Object {
+                        "type": "array",
+                      },
+                      Object {
+                        "type": "null",
+                      },
+                    ],
+                  },
+                },
+                "required": Array [
+                  "type",
+                ],
+              },
+              "then": Object {
+                "properties": Object {
+                  "type": Object {
+                    "enum": Array [
+                      "BASIC",
+                      "OAUTH_2",
+                      "BEARER",
+                    ],
+                  },
+                },
+                "required": Array [
+                  "type",
+                ],
+              },
+            },
+            Object {
+              "if": Object {
+                "properties": Object {
+                  "type": Object {
+                    "const": "BASIC",
+                  },
+                },
+                "required": Array [
+                  "type",
+                ],
+              },
+              "then": Object {
+                "$ref": "#/definitions/basicAuthentication",
+              },
+            },
+            Object {
+              "if": Object {
+                "properties": Object {
+                  "type": Object {
+                    "const": "OAUTH_2",
+                  },
+                },
+                "required": Array [
+                  "type",
+                ],
+              },
+              "then": Object {
+                "$ref": "#/definitions/oauth2Authentication",
+              },
+            },
+            Object {
+              "if": Object {
+                "properties": Object {
+                  "type": Object {
+                    "const": "BEARER",
+                  },
+                },
+                "required": Array [
+                  "type",
+                ],
+              },
+              "then": Object {
+                "$ref": "#/definitions/bearerAuthentication",
+              },
+            },
+          ],
+          "required": Array [
+            "type",
+          ],
+          "type": "object",
+        },
+        "body": Object {
+          "anyOf": Array [
+            Object {
+              "type": "number",
+            },
+            Object {
+              "type": "string",
+            },
+            Object {
+              "type": "boolean",
+            },
+            Object {
+              "type": "object",
+            },
+            Object {
+              "type": "array",
+            },
+            Object {
+              "type": "null",
+            },
+          ],
+        },
+        "method": Object {
+          "enum": Array [
+            "get",
+            "GET",
+            "delete",
+            "DELETE",
+            "head",
+            "HEAD",
+            "options",
+            "OPTIONS",
+            "post",
+            "POST",
+            "put",
+            "PUT",
+            "patch",
+            "PATCH",
+            "purge",
+            "PURGE",
+            "link",
+            "LINK",
+            "unlink",
+            "UNLINK",
+          ],
+        },
+        "params": Object {
+          "anyOf": Array [
+            Object {
+              "type": "number",
+            },
+            Object {
+              "type": "string",
+            },
+            Object {
+              "type": "boolean",
+            },
+            Object {
+              "type": "object",
+            },
+            Object {
+              "type": "array",
+            },
+            Object {
+              "type": "null",
+            },
+          ],
+        },
+        "responseKeyField": Object {
+          "type": "string",
+        },
+        "type": Object {
+          "const": "API_SOURCE",
+        },
+        "url": Object {
+          "type": "string",
+        },
+      },
+      "required": Array [
+        "type",
+        "url",
+        "method",
+        "authentication",
+      ],
+      "type": "object",
+    },
+    "awsAccountAuthentication": Object {
+      "properties": Object {
+        "credentials": Object {
+          "properties": Object {
+            "accessKeyId": Object {
+              "type": "string",
+            },
+            "secretAccessKey": Object {
+              "type": "string",
+            },
+            "sessionToken": Object {
+              "type": "string",
+            },
+          },
+          "required": Array [
+            "accessKeyId",
+            "secretAccessKey",
+            "sessionToken",
+          ],
+          "type": "object",
+        },
+        "scopes": Object {
+          "items": Object {
+            "type": "string",
+          },
+          "type": "array",
+        },
+        "type": Object {
+          "const": "AWS_ACCOUNT",
+        },
+      },
+      "required": Array [
+        "type",
+        "credentials",
+      ],
+      "type": "object",
+    },
+    "awsApiGatewayApiKeyConsumerAction": Object {
+      "properties": Object {
+        "authentication": Object {
+          "$ref": "#/definitions/awsAccountAuthentication",
+        },
+        "region": Object {
+          "type": "string",
+        },
+        "type": Object {
+          "const": "AWS_GATEWAY_API_KEY_CONSUMER",
+        },
+        "usagePlanId": Object {
+          "type": "string",
+        },
+      },
+      "required": Array [
+        "type",
+        "usagePlanId",
+        "region",
+      ],
+      "type": "object",
+    },
+    "awsApiGatewayApiKeySourceAction": Object {
+      "properties": Object {
+        "authentication": Object {
+          "$ref": "#/definitions/awsAccountAuthentication",
+        },
+        "region": Object {
+          "type": "string",
+        },
+        "type": Object {
+          "const": "AWS_GATEWAY_API_KEY_SOURCE",
+        },
+        "usagePlanId": Object {
+          "type": "string",
+        },
+      },
+      "required": Array [
+        "type",
+        "usagePlanId",
+        "region",
+      ],
+      "type": "object",
+    },
+    "awsSecretManagerConsumerAction": Object {
+      "properties": Object {
+        "authentication": Object {
+          "$ref": "#/definitions/awsAccountAuthentication",
+        },
+        "isValueArray": Object {
+          "type": "boolean",
+        },
+        "keyFieldName": Object {
+          "type": "string",
+        },
+        "keyFieldNames": Object {
+          "items": Object {
+            "properties": Object {
+              "isValueArray": Object {
+                "type": "boolean",
+              },
+              "keyFieldName": Object {
+                "type": "string",
+              },
+            },
+            "required": Array [
+              "keyFieldName",
+            ],
+            "type": "object",
+          },
+          "type": "array",
+        },
+        "region": Object {
+          "type": "string",
+        },
+        "secretId": Object {
+          "type": "string",
+        },
+        "type": Object {
+          "const": "AWS_SECRET_MANAGER_CONSUMER",
+        },
+      },
+      "required": Array [
+        "type",
+        "secretId",
+        "region",
+      ],
+      "type": "object",
+    },
+    "awsSecretManagerSourceAction": Object {
+      "properties": Object {
+        "authentication": Object {
+          "$ref": "#/definitions/awsAccountAuthentication",
+        },
+        "isValueArray": Object {
+          "type": "boolean",
+        },
+        "keyFieldName": Object {
+          "type": "string",
+        },
+        "keyFieldNames": Object {
+          "items": Object {
+            "properties": Object {
+              "isValueArray": Object {
+                "type": "boolean",
+              },
+              "keyFieldName": Object {
+                "type": "string",
+              },
+            },
+            "required": Array [
+              "keyFieldName",
+            ],
+            "type": "object",
+          },
+          "type": "array",
+        },
+        "region": Object {
+          "type": "string",
+        },
+        "secretId": Object {
+          "type": "string",
+        },
+        "type": Object {
+          "const": "AWS_SECRET_MANAGER_SOURCE",
+        },
+      },
+      "required": Array [
+        "type",
+        "secretId",
+        "region",
+      ],
+      "type": "object",
+    },
+    "basicAuthentication": Object {
+      "properties": Object {
+        "password": Object {
+          "type": "string",
+        },
+        "type": Object {
+          "const": "BASIC",
+        },
+        "userName": Object {
+          "type": "string",
+        },
+      },
+      "required": Array [
+        "type",
+        "userName",
+        "password",
+      ],
+      "type": "object",
+    },
+    "bearerAuthentication": Object {
+      "properties": Object {
+        "apiKey": Object {
+          "type": "string",
+        },
+        "type": Object {
+          "const": "BEARER",
+        },
+      },
+      "required": Array [
+        "type",
+        "apiKey",
+      ],
+      "type": "object",
+    },
+    "consumer": Object {
+      "properties": Object {
+        "action": Object {
+          "allOf": Array [
+            Object {
+              "if": Object {
+                "properties": Object {
+                  "type": Object {
+                    "oneOf": Array [
+                      Object {
+                        "type": "number",
+                      },
+                      Object {
+                        "type": "string",
+                      },
+                      Object {
+                        "type": "boolean",
+                      },
+                      Object {
+                        "type": "object",
+                      },
+                      Object {
+                        "type": "array",
+                      },
+                      Object {
+                        "type": "null",
+                      },
+                    ],
+                  },
+                },
+                "required": Array [
+                  "type",
+                ],
+              },
+              "then": Object {
+                "properties": Object {
+                  "type": Object {
+                    "enum": Array [
+                      "API_CONSUMER",
+                      "GCP_SECRET_MANAGER_CONSUMER",
+                      "API_PLATFORM_API_SERVICE_TOKEN_CONSUMER",
+                      "EVENT_SUBSCRIPTION_TOKEN",
+                      "AWS_SECRET_MANAGER_CONSUMER",
+                      "AWS_GATEWAY_API_KEY_CONSUMER",
+                    ],
+                  },
+                },
+                "required": Array [
+                  "type",
+                ],
+              },
+            },
+            Object {
+              "if": Object {
+                "properties": Object {
+                  "type": Object {
+                    "const": "API_CONSUMER",
+                  },
+                },
+                "required": Array [
+                  "type",
+                ],
+              },
+              "then": Object {
+                "$ref": "#/definitions/apiConsumerAction",
+              },
+            },
+            Object {
+              "if": Object {
+                "properties": Object {
+                  "type": Object {
+                    "const": "GCP_SECRET_MANAGER_CONSUMER",
+                  },
+                },
+                "required": Array [
+                  "type",
+                ],
+              },
+              "then": Object {
+                "$ref": "#/definitions/gcpSecretManagerConsumerAction",
+              },
+            },
+            Object {
+              "if": Object {
+                "properties": Object {
+                  "type": Object {
+                    "const": "API_PLATFORM_API_SERVICE_TOKEN_CONSUMER",
+                  },
+                },
+                "required": Array [
+                  "type",
+                ],
+              },
+              "then": Object {
+                "$ref": "#/definitions/apiPlatformApiServiceTokenConsumerAction",
+              },
+            },
+            Object {
+              "if": Object {
+                "properties": Object {
+                  "type": Object {
+                    "const": "EVENT_SUBSCRIPTION_TOKEN",
+                  },
+                },
+                "required": Array [
+                  "type",
+                ],
+              },
+              "then": Object {
+                "$ref": "#/definitions/eventSubscriptionTokenConsumerAction",
+              },
+            },
+            Object {
+              "if": Object {
+                "properties": Object {
+                  "type": Object {
+                    "const": "AWS_SECRET_MANAGER_CONSUMER",
+                  },
+                },
+                "required": Array [
+                  "type",
+                ],
+              },
+              "then": Object {
+                "$ref": "#/definitions/awsSecretManagerConsumerAction",
+              },
+            },
+            Object {
+              "if": Object {
+                "properties": Object {
+                  "type": Object {
+                    "const": "AWS_GATEWAY_API_KEY_CONSUMER",
+                  },
+                },
+                "required": Array [
+                  "type",
+                ],
+              },
+              "then": Object {
+                "$ref": "#/definitions/awsApiGatewayApiKeyConsumerAction",
+              },
+            },
+          ],
+          "required": Array [
+            "type",
+          ],
+          "type": "object",
+        },
+        "name": Object {
+          "type": "string",
+        },
+        "redeploy": Object {
+          "oneOf": Array [
+            Object {
+              "$ref": "#/definitions/redeploy",
+            },
+            Object {
+              "items": Object {
+                "$ref": "#/definitions/redeploy",
+              },
+              "type": "array",
+            },
+          ],
+        },
+      },
+      "required": Array [
+        "name",
+        "action",
+      ],
+      "type": "object",
+    },
+    "eventSubscriptionTokenConsumerAction": Object {
+      "properties": Object {
+        "apiPlatformUrl": Object {
+          "type": "string",
+        },
+        "authentication": Object {
+          "$ref": "#/definitions/oauth2Authentication",
+        },
+        "eventSubscriptionAuthHeaderName": Object {
+          "type": "string",
+        },
+        "eventSubscriptionName": Object {
+          "type": "string",
+        },
+        "type": Object {
+          "const": "EVENT_SUBSCRIPTION_TOKEN",
+        },
+      },
+      "required": Array [
+        "type",
+        "eventSubscriptionName",
+        "eventSubscriptionAuthHeaderName",
+        "apiPlatformUrl",
+        "authentication",
+      ],
+      "type": "object",
+    },
+    "gcpPostgresDataBaseSourceAction": Object {
+      "properties": Object {
+        "authentication": Object {
+          "$ref": "#/definitions/gcpServiceAccountAuthentication",
+        },
+        "instanceName": Object {
+          "type": "string",
+        },
+        "projectId": Object {
+          "type": "string",
+        },
+        "type": Object {
+          "const": "GCP_POSTGRES_DATABASE_SOURCE",
+        },
+        "userName": Object {
+          "type": "string",
+        },
+      },
+      "required": Array [
+        "type",
+        "userName",
+        "instanceName",
+        "projectId",
+      ],
+      "type": "object",
+    },
+    "gcpSecretManagerConsumerAction": Object {
+      "properties": Object {
+        "authentication": Object {
+          "$ref": "#/definitions/gcpServiceAccountAuthentication",
+        },
+        "isValueArray": Object {
+          "type": "boolean",
+        },
+        "keyFieldName": Object {
+          "type": "string",
+        },
+        "keyFieldNames": Object {
+          "items": Object {
+            "properties": Object {
+              "isValueArray": Object {
+                "type": "boolean",
+              },
+              "keyFieldName": Object {
+                "type": "string",
+              },
+            },
+            "required": Array [
+              "keyFieldName",
+            ],
+            "type": "object",
+          },
+          "type": "array",
+        },
+        "projectId": Object {
+          "type": "string",
+        },
+        "secretName": Object {
+          "type": "string",
+        },
+        "type": Object {
+          "const": "GCP_SECRET_MANAGER_CONSUMER",
+        },
+      },
+      "required": Array [
+        "type",
+        "secretName",
+        "projectId",
+      ],
+      "type": "object",
+    },
+    "gcpSecretManagerSourceAction": Object {
+      "properties": Object {
+        "authentication": Object {
+          "$ref": "#/definitions/gcpServiceAccountAuthentication",
+        },
+        "isValueArray": Object {
+          "type": "boolean",
+        },
+        "keyFieldName": Object {
+          "type": "string",
+        },
+        "keyFieldNames": Object {
+          "items": Object {
+            "properties": Object {
+              "isValueArray": Object {
+                "type": "boolean",
+              },
+              "keyFieldName": Object {
+                "type": "string",
+              },
+            },
+            "required": Array [
+              "keyFieldName",
+            ],
+            "type": "object",
+          },
+          "type": "array",
+        },
+        "projectId": Object {
+          "type": "string",
+        },
+        "secretName": Object {
+          "type": "string",
+        },
+        "type": Object {
+          "const": "GCP_SECRET_MANAGER_SOURCE",
+        },
+      },
+      "required": Array [
+        "type",
+        "secretName",
+        "projectId",
+      ],
+      "type": "object",
+    },
+    "gcpServiceAccountAuthentication": Object {
+      "properties": Object {
+        "credentials": Object {
+          "type": "string",
+        },
+        "scopes": Object {
+          "items": Object {
+            "type": "string",
+          },
+          "type": "array",
+        },
+        "type": Object {
+          "const": "GCP_SERVICE_ACCOUNT",
+        },
+      },
+      "required": Array [
+        "type",
+      ],
+      "type": "object",
+    },
+    "gcpServiceAccountKeySourceAction": Object {
+      "properties": Object {
+        "authentication": Object {
+          "$ref": "#/definitions/gcpServiceAccountAuthentication",
+        },
+        "projectId": Object {
+          "type": "string",
+        },
+        "serviceAccountName": Object {
+          "type": "string",
+        },
+        "type": Object {
+          "const": "GCP_SERVICE_ACCOUNT_KEY_SOURCE",
+        },
+      },
+      "required": Array [
+        "type",
+        "serviceAccountName",
+        "projectId",
+      ],
+      "type": "object",
+    },
+    "generatePasswordSourceAction": Object {
+      "properties": Object {
+        "type": Object {
+          "const": "GENERATE_PASSWORD",
+        },
+      },
+      "required": Array [
+        "type",
+      ],
+      "type": "object",
+    },
+    "oauth2Authentication": Object {
+      "properties": Object {
+        "clientId": Object {
+          "type": "string",
+        },
+        "clientSecret": Object {
+          "type": "string",
+        },
+        "grantType": Object {
+          "type": "string",
+        },
+        "scope": Object {
+          "type": "string",
+        },
+        "tokenUrl": Object {
+          "type": "string",
+        },
+        "type": Object {
+          "const": "OAUTH_2",
+        },
+      },
+      "required": Array [
+        "type",
+        "grantType",
+        "scope",
+        "tokenUrl",
+        "clientId",
+        "clientSecret",
+      ],
+      "type": "object",
+    },
+    "redeploy": Object {
+      "properties": Object {
+        "accessToken": Object {
+          "type": "string",
+        },
+        "jobId": Object {
+          "type": "string",
+        },
+        "workflowId": Object {
+          "type": "string",
+        },
+      },
+      "required": Array [
+        "workflowId",
+        "jobId",
+        "accessToken",
+      ],
+      "type": "object",
+    },
+    "sendGridSourceAction": Object {
+      "properties": Object {
+        "apiKeyName": Object {
+          "type": "string",
+        },
+        "authentication": Object {
+          "properties": Object {
+            "apiKey": Object {
+              "type": "string",
+            },
+            "type": Object {
+              "const": "SENDGRID",
+            },
+          },
+          "type": "object",
+        },
+        "type": Object {
+          "const": "SENDGRID_SOURCE",
+        },
+      },
+      "required": Array [
+        "type",
+        "apiKeyName",
+        "authentication",
+      ],
+      "type": "object",
+    },
+  },
+  "properties": Object {
+    "consumers": Object {
+      "items": Object {
+        "$ref": "#/definitions/consumer",
+      },
+      "type": "array",
+    },
+    "source": Object {
+      "properties": Object {
+        "action": Object {
+          "allOf": Array [
+            Object {
+              "if": Object {
+                "properties": Object {
+                  "type": Object {
+                    "oneOf": Array [
+                      Object {
+                        "type": "number",
+                      },
+                      Object {
+                        "type": "string",
+                      },
+                      Object {
+                        "type": "boolean",
+                      },
+                      Object {
+                        "type": "object",
+                      },
+                      Object {
+                        "type": "array",
+                      },
+                      Object {
+                        "type": "null",
+                      },
+                    ],
+                  },
+                },
+                "required": Array [
+                  "type",
+                ],
+              },
+              "then": Object {
+                "properties": Object {
+                  "type": Object {
+                    "enum": Array [
+                      "SENDGRID_SOURCE",
+                      "API_SOURCE",
+                      "API_PLATFORM_CLIENT_SECRET",
+                      "GCP_SECRET_MANAGER_SOURCE",
+                      "AWS_SECRET_MANAGER_SOURCE",
+                      "GCP_POSTGRES_DATABASE_SOURCE",
+                      "API_PLATFORM_API_SERVICE_TOKEN_SOURCE",
+                      "GCP_SERVICE_ACCOUNT_KEY_SOURCE",
+                      "GENERATE_PASSWORD",
+                      "AWS_GATEWAY_API_KEY_SOURCE",
+                    ],
+                  },
+                },
+                "required": Array [
+                  "type",
+                ],
+              },
+            },
+            Object {
+              "if": Object {
+                "properties": Object {
+                  "type": Object {
+                    "const": "SENDGRID_SOURCE",
+                  },
+                },
+                "required": Array [
+                  "type",
+                ],
+              },
+              "then": Object {
+                "$ref": "#/definitions/sendGridSourceAction",
+              },
+            },
+            Object {
+              "if": Object {
+                "properties": Object {
+                  "type": Object {
+                    "const": "API_SOURCE",
+                  },
+                },
+                "required": Array [
+                  "type",
+                ],
+              },
+              "then": Object {
+                "$ref": "#/definitions/apiSourceAction",
+              },
+            },
+            Object {
+              "if": Object {
+                "properties": Object {
+                  "type": Object {
+                    "const": "API_PLATFORM_CLIENT_SECRET",
+                  },
+                },
+                "required": Array [
+                  "type",
+                ],
+              },
+              "then": Object {
+                "$ref": "#/definitions/apiClientSecretAction",
+              },
+            },
+            Object {
+              "if": Object {
+                "properties": Object {
+                  "type": Object {
+                    "const": "GCP_SECRET_MANAGER_SOURCE",
+                  },
+                },
+                "required": Array [
+                  "type",
+                ],
+              },
+              "then": Object {
+                "$ref": "#/definitions/gcpSecretManagerSourceAction",
+              },
+            },
+            Object {
+              "if": Object {
+                "properties": Object {
+                  "type": Object {
+                    "const": "AWS_SECRET_MANAGER_SOURCE",
+                  },
+                },
+                "required": Array [
+                  "type",
+                ],
+              },
+              "then": Object {
+                "$ref": "#/definitions/awsSecretManagerSourceAction",
+              },
+            },
+            Object {
+              "if": Object {
+                "properties": Object {
+                  "type": Object {
+                    "const": "GCP_POSTGRES_DATABASE_SOURCE",
+                  },
+                },
+                "required": Array [
+                  "type",
+                ],
+              },
+              "then": Object {
+                "$ref": "#/definitions/gcpPostgresDataBaseSourceAction",
+              },
+            },
+            Object {
+              "if": Object {
+                "properties": Object {
+                  "type": Object {
+                    "const": "API_PLATFORM_API_SERVICE_TOKEN_SOURCE",
+                  },
+                },
+                "required": Array [
+                  "type",
+                ],
+              },
+              "then": Object {
+                "$ref": "#/definitions/apiPlatformApiServiceTokenSourceAction",
+              },
+            },
+            Object {
+              "if": Object {
+                "properties": Object {
+                  "type": Object {
+                    "const": "GCP_SERVICE_ACCOUNT_KEY_SOURCE",
+                  },
+                },
+                "required": Array [
+                  "type",
+                ],
+              },
+              "then": Object {
+                "$ref": "#/definitions/gcpServiceAccountKeySourceAction",
+              },
+            },
+            Object {
+              "if": Object {
+                "properties": Object {
+                  "type": Object {
+                    "const": "GENERATE_PASSWORD",
+                  },
+                },
+                "required": Array [
+                  "type",
+                ],
+              },
+              "then": Object {
+                "$ref": "#/definitions/generatePasswordSourceAction",
+              },
+            },
+            Object {
+              "if": Object {
+                "properties": Object {
+                  "type": Object {
+                    "const": "AWS_GATEWAY_API_KEY_SOURCE",
+                  },
+                },
+                "required": Array [
+                  "type",
+                ],
+              },
+              "then": Object {
+                "$ref": "#/definitions/awsApiGatewayApiKeySourceAction",
+              },
+            },
+          ],
+          "required": Array [
+            "type",
+          ],
+          "type": "object",
+        },
+        "name": Object {
+          "type": "string",
+        },
+        "passwordConfig": Object {
+          "properties": Object {
+            "exclude": Object {
+              "type": "string",
+            },
+            "excludeSimilarCharacters": Object {
+              "type": "boolean",
+            },
+            "length": Object {
+              "type": "number",
+            },
+            "lowercase": Object {
+              "type": "boolean",
+            },
+            "numbers": Object {
+              "type": "boolean",
+            },
+            "strict": Object {
+              "type": "boolean",
+            },
+            "symbols": Object {
+              "type": "boolean",
+            },
+          },
+          "required": Array [
+            "length",
+            "numbers",
+            "symbols",
+            "lowercase",
+            "excludeSimilarCharacters",
+            "exclude",
+            "strict",
+          ],
+          "type": "object",
+        },
+      },
+      "required": Array [
+        "name",
+        "action",
+      ],
+      "type": "object",
+    },
+  },
+  "title": "config file schema",
+  "type": "object",
+}
+`;

@@ -1,0 +1,29 @@
+{
+  "source": {
+    "name": "${SOURCE_NAME}",
+    "action": {
+      "type": "SENDGRID_SOURCE",
+      "apiKeyName": "${SENDGRID_API_KEY_NAME}",
+      "authentication": {
+        "type": "SENDGRID",
+        "apiKey": "${SENDGRID_API_KEY}"
+      }
+    }
+  },
+  "consumers": [
+    {
+      "name": "Test Secret Manager 1",
+      "action": {
+        "type": "GCP_SECRET_MANAGER_CONSUMER",
+        "secretName": "${GCP_SECRET_NAME}",
+        "keyFieldName": "mailNotification.apiKey",
+        "projectId": "${GCP_PROJECT_ID}",
+        "authentication": {
+          "scopes": [],
+          "type": "GCP_SERVICE_ACCOUNT",
+          "credentials": "${GCLOUD_KEY}"
+        }
+      }
+    }
+  ]
+}

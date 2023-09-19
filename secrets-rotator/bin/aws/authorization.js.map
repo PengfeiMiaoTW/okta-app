@@ -1,0 +1,1 @@
+{"version":3,"file":"authorization.js","sourceRoot":"","sources":["../../src/aws/authorization.ts"],"names":[],"mappings":";;;AACA,8CAA4C;AAG5C,SAAgB,qBAAqB,CAAC,WAAoD;IACxF,OAAO,IAAA,kBAAQ,EAAwB;QACrC,WAAW,EAAE,WAAW,CAAC,cAAc;QACvC,eAAe,EAAE,WAAW,CAAC,kBAAkB;QAC/C,YAAY,EAAE,WAAW,CAAC,eAAe;KAC1C,CAAC,CAAC;AACL,CAAC;AAND,sDAMC"}

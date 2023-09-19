@@ -1,0 +1,41 @@
+include:
+  files:
+    - "**/*"
+
+exclude:
+  files:
+    - ".git/.*"
+    - ".vscode/.*"
+    - ".idea/.*"
+    - "build/.*"
+    - ".*__pycache__/.*"
+    - ".*.eggs/.*"
+    - ".*locales/.*"
+    - ".*spec/.*"
+    - ".*specs/.*"
+    - ".*test/.*"
+    - ".*tests/.*"
+    - ".*mock/.*"
+    - ".*mocks/.*"
+    - ".*integration/.*"
+    - ".*package-lock.json"
+    - ".*npm-shrinkwrap.json"
+    - ".*node_modules/.*"
+    - ".*.lock"
+    - "whispers.log"
+    - "whispers-findings.out"
+    - "run-secrets-scan.sh"
+    - ".*/.eslintrc"
+    - "gcp/env/access_secret.sh"
+    - ".eslintrc"
+    - "scripts/run-integration-test-in-docker.sh"
+    - "package.json"
+  keys:
+    - .*(public|project).*
+  values:
+    - ^(true|false|yes|no|1|0)$
+    - .*_(user|password|token|key|placeholder|name)$
+    - ^aws_(access_key_id|secret_access_key|session_token)$
+    - ^arn:aws:.*
+#   Add the following line to exclude the positive alert:
+#    - ^(123456)$

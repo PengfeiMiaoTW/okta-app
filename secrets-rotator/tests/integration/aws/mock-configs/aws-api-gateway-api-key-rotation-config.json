@@ -1,0 +1,28 @@
+{
+  "source": {
+    "name": "Generate Password",
+    "passwordConfig": {
+      "length": 24,
+      "numbers": true,
+      "symbols": false,
+      "lowercase": true,
+      "excludeSimilarCharacters": false,
+      "exclude": "",
+      "strict": false
+    },
+    "action": {
+      "type": "GENERATE_PASSWORD"
+    }
+  },
+  "consumers": [
+    {
+      "name": "API Gateway API key",
+      "action": {
+        "type": "AWS_GATEWAY_API_KEY_CONSUMER",
+        "usagePlanId": "${USAGE_PLAN_ID}",
+        "region": "${REGION}"
+      }
+    }
+  ]
+}
+
