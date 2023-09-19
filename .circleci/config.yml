@@ -46,7 +46,7 @@ jobs:
       image: ubuntu-2004:202010-01
     steps:
       - rotate-secrets-command:
-          config_file_path: "./secrets-rotator-configs/config.json"
+          config_file_path: "../secrets-rotator-configs/config.json"
       - store_artifacts:
           path: report.encrypted
 

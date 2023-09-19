@@ -17,7 +17,6 @@ add_secrets_rotator_cli() {
 rotate_secrets() {
   echo "Rotating secrets"
   yarn start rotate -c $FILE_PATH
-  cd ..
 #  yarn secrets-rotator rotate -c $FILE_PATH
   echo "Completed rotating secrets"
 }
