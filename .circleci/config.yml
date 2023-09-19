@@ -1,24 +1,58 @@
 version: 2.1
 
-jobs:
-  say-hello:
-    docker:
-      - image: cimg/base:stable
+orbs:
+  node: circleci/node@5.1.0
+
+commands:
+  rotate-secrets-command:
+    parameters:
+      config_file_path:
+        type: string
+    description: "rotate secrets"
     steps:
       - checkout
-      - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
-  rotate-secrets:
-    docker:
-      - image: cimg/base:stable
-    steps:
+      - attach_workspace:
+          at: ~/repo
+      - node/install:
+          install-yarn: true
+          node-version: '14.18.1'
+      - run: node --version
+      # We need SSH keys to clone secrets-rotator-cli repo
       - add_ssh_keys:
-          fingerprints: 41:c8:89:e5:11:03:35:86:f8:77:a5:1e:5c:f6:be:1a
+          fingerprints:
+            - "45:4e:5b:76:55:bc:0d:18:4f:44:0e:63:6b:c0:b2:a5"
+      - run:
+          name: rotate secrets
+          command: |
+            bash ./scripts/rotate-secrets.sh <<parameters.config_file_path>>
+      - run:
+          name: Chat Notification Fail
+          when: on_fail
+          command: >
+            curl --header "Content-Type: application/json"
+            --request POST
+            --data "{\"cards\":[{\"header\":{\"title\":\"Secret Rotator - Oops. ${CIRCLE_JOB} failed.\",\"imageUrl\":\"https://png.pngtree.com/svg/20170406/icon_failed__1325447.png\",\"imageStyle\":\"IMAGE\"},\"sections\":[{\"widgets\":[{\"keyValue\":{\"content\":\"secret rotation failed\",\"contentMultiline\":\"true\",\"onClick\": {\"openLink\": {\"url\": \"${CIRCLE_BUILD_URL}/\"}}}}]}]}],\"thread\":{\"name\":\"spaces/AAAAnHUlyOQ/threads/bGDnR4-DnPM\"}}"
+            $CHAT_WEBHOOK_URL
+      - run:
+          name: Chat Notification Success
+          when: on_success
+          command: >
+            curl --header "Content-Type: application/json" --request POST --data "{\"cards\":[{\"header\":{\"title\":\"Request service - ${CIRCLE_JOB} successful.\",\"imageUrl\":\"https://png.pngtree.com/svg/20170510/success_404253.png\",\"imageStyle\":\"IMAGE\"},\"sections\":[{\"widgets\":[{\"keyValue\":{\"content\":\"secret rotation success\",\"contentMultiline\":\"true\",\"onClick\": {\"openLink\": {\"url\": \"${CIRCLE_BUILD_URL}/\"}}}}]}]}],\"thread\":{\"name\":\"spaces/AAAAnHUlyOQ/threads/bGDnR4-DnPM\"}}" $CHAT_WEBHOOK_URL
+
+
+jobs:
+  jobs:
+    rotate-ssm-key:
+      working_directory: ~/repo
+      machine:
+        image: ubuntu-2004:202010-01
+      steps:
+        - rotate-secrets-command:
+            config_file_path: "./secret-rotator-configs/config.json"
+        - store_artifacts:
+            path: report.encrypted
+
 workflows:
-  say-hello-workflow:
+  rotate-workflow:
     jobs:
-      - say-hello
-      - rotate-secrets:
-          requires:
-            - say-hello
+      - rotate-ssm-key
