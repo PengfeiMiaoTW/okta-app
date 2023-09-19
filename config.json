@@ -1,0 +1,48 @@
+{
+  "source": {
+    "name": "<any name for logging, e.g. Static Token Rotation>",
+    "passwordConfig": {
+      "length": 24,
+      "numbers": true,
+      "symbols": false,
+      "lowercase": true,
+      "excludeSimilarCharacters": false,
+      "exclude": "",
+      "strict": false
+    },
+    "action": {
+      "type": "AWS_SECRET_MANAGER_SOURCE",
+      "secretId": "${SECRET_KEY}",
+      "keyFieldName": "runtime.secret",
+      "region": "${AWS_REGION}",
+      "authentication": {
+        "type": "AWS_ACCOUNT",
+        "credentials": {
+          "accessKeyId": "${AWS_ACCESS_KEY_ID}",
+          "secretAccessKey": "${AWS_SECRET_ACCESS_KEY}",
+          "sessionToken": "${AWS_SESSION_TOKEN}"
+        }
+      }
+    }
+  },
+  "consumers": [
+    {
+      "name": "<any name which will help to identify the consumer>",
+      "action": {
+        "type": "AWS_SECRET_MANAGER_CONSUMER",
+        "secretId": "${SECRET_KEY}",
+        "keyFieldName": "runtime.secret",
+        "isValueArray": true,
+        "region": "${AWS_REGION}",
+        "authentication": {
+          "type": "AWS_ACCOUNT",
+          "credentials": {
+            "accessKeyId": "${AWS_ACCESS_KEY_ID}",
+            "secretAccessKey": "${AWS_SECRET_ACCESS_KEY}",
+            "sessionToken": "${AWS_SESSION_TOKEN}"
+          }
+        }
+      }
+    }
+  ]
+}
