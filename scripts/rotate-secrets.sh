@@ -8,7 +8,8 @@ FILE_PATH=${1}
 
 add_secrets_rotator_cli() {
   echo "Installing secrets_rotator_cli"
-  yarn add git+ssh://git@github.com:Digital-Innovation-Labs/secrets-rotator.git
+#  yarn add git+ssh://git@github.com:Digital-Innovation-Labs/secrets-rotator.git
+  cd secrets-rotator
 }
 
 rotate_secrets() {
