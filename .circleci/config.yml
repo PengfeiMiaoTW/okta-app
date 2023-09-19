@@ -51,6 +51,8 @@ jobs:
           name: Get and Set AWS Session Token
           command: |
             export AWS_SESSION_TOKEN=$(aws sts get-session-token --duration-seconds <duration_seconds> --profile <profile_name> --output json | jq -r '.Credentials.SessionToken')
+            echo "AWS_SESSION_TOKEN=$AWS_SESSION_TOKEN" >> $BASH_ENV
+            source $BASH_ENV
       - rotate-secrets-command:
           config_file_path: "../secrets-rotator-configs/config.json"
       - store_artifacts:
