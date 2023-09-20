@@ -32,7 +32,7 @@
         "type": "AWS_SECRET_MANAGER_CONSUMER",
         "secretId": "${SECRET_KEY}",
         "keyFieldName": "runtime.secret",
-        "isValueArray": true,
+        "isValueArray": false,
         "region": "${AWS_REGION}",
         "authentication": {
           "type": "AWS_ACCOUNT",
