@@ -25,16 +25,6 @@ commands:
           name: rotate secrets
           command: |
             bash ./scripts/rotate-secrets.sh <<parameters.config_file_path>>
-      - run:
-          name: Rotation Fail
-          when: on_fail
-          command: >
-            echo "Secrets Rotation Fail"
-      - run:
-          name: Rotation Success
-          when: on_success
-          command: >
-            echo "Secrets Rotation Success"
 
 jobs:
   rotate-ssm-key:
