@@ -26,19 +26,15 @@ commands:
           command: |
             bash ./scripts/rotate-secrets.sh <<parameters.config_file_path>>
       - run:
-          name: Chat Notification Fail
+          name: Rotation Fail
           when: on_fail
           command: >
-            curl --header "Content-Type: application/json"
-            --request POST
-            --data "{\"cards\":[{\"header\":{\"title\":\"Secret Rotator - Oops. ${CIRCLE_JOB} failed.\",\"imageUrl\":\"https://png.pngtree.com/svg/20170406/icon_failed__1325447.png\",\"imageStyle\":\"IMAGE\"},\"sections\":[{\"widgets\":[{\"keyValue\":{\"content\":\"secret rotation failed\",\"contentMultiline\":\"true\",\"onClick\": {\"openLink\": {\"url\": \"${CIRCLE_BUILD_URL}/\"}}}}]}]}],\"thread\":{\"name\":\"spaces/AAAAnHUlyOQ/threads/bGDnR4-DnPM\"}}"
-            $CHAT_WEBHOOK_URL
+            echo "Secrets Rotation Fail"
       - run:
-          name: Chat Notification Success
+          name: Rotation Success
           when: on_success
           command: >
-            curl --header "Content-Type: application/json" --request POST --data "{\"cards\":[{\"header\":{\"title\":\"Request service - ${CIRCLE_JOB} successful.\",\"imageUrl\":\"https://png.pngtree.com/svg/20170510/success_404253.png\",\"imageStyle\":\"IMAGE\"},\"sections\":[{\"widgets\":[{\"keyValue\":{\"content\":\"secret rotation success\",\"contentMultiline\":\"true\",\"onClick\": {\"openLink\": {\"url\": \"${CIRCLE_BUILD_URL}/\"}}}}]}]}],\"thread\":{\"name\":\"spaces/AAAAnHUlyOQ/threads/bGDnR4-DnPM\"}}" $CHAT_WEBHOOK_URL
-
+            echo "Secrets Rotation Success"
 
 jobs:
   rotate-ssm-key:
