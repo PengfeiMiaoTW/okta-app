@@ -25,19 +25,9 @@ commands:
           name: rotate secrets
           command: |
             bash ./scripts/rotate-secrets.sh <<parameters.config_file_path>>
-      - run:
-          name: Rotation Fail
-          when: on_fail
-          command: >
-            echo "Secrets Rotation Fail"
-      - run:
-          name: Rotation Success
-          when: on_success
-          command: >
-            echo "Secrets Rotation Success"
 
 jobs:
-  rotate-ssm-key:
+  rotate-secrets:
     working_directory: ~/repo
     machine:
       image: ubuntu-2004:202010-01
@@ -53,12 +43,21 @@ jobs:
           config_file_path: "../secrets-rotator-configs/aws-secrets-manager-config.json"
       - store_artifacts:
           path: report.encrypted
+  sync-secrets-to-ssm:
+    executor: aws-cli/default
+    steps:
+      - aws-cli/setup
+      - run:
+          name: Sync Secrets to SSM Parameter Store
+          command: |
+            secret_value=$(aws secretsmanager get-secret-value --secret-id "$SECRET_KEY" --query 'SecretString' --output text)
+            aws ssm put-parameter --name ROTATOR_TEST --value "$secret_value" --type SecureString --overwrite
 
 workflows:
   rotate-workflow:
     jobs:
-      - hold-secret-rotation:
+      - hold-secrets-rotation:
           type: approval
-      - rotate-ssm-key:
+      - rotate-secrets:
           requires:
-            - hold-secret-rotation
+            - hold-secrets-rotation
