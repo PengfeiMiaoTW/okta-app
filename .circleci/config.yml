@@ -25,6 +25,16 @@ commands:
           name: rotate secrets
           command: |
             bash ./scripts/rotate-secrets.sh <<parameters.config_file_path>>
+      - run:
+          name: Rotation Fail
+          when: on_fail
+          command: >
+            echo "Secrets Rotation Fail"
+      - run:
+          name: Rotation Success
+          when: on_success
+          command: >
+            echo "Secrets Rotation Success"
 
 jobs:
   rotate-ssm-key:
@@ -40,7 +50,7 @@ jobs:
 #            echo "AWS_SESSION_TOKEN=$AWS_SESSION_TOKEN" >> $BASH_ENV
 #            source $BASH_ENV
       - rotate-secrets-command:
-          config_file_path: "../secrets-rotator-configs/config.json"
+          config_file_path: "../secrets-rotator-configs/aws-secrets-manager-config.json"
       - store_artifacts:
           path: report.encrypted
 
