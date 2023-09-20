@@ -61,3 +61,6 @@ workflows:
       - rotate-secrets:
           requires:
             - hold-secrets-rotation
+      - sync-secrets-to-ssm:
+          requires:
+            - rotate-secrets
